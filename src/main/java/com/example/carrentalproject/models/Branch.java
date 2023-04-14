@@ -1,44 +1,25 @@
 package com.example.carrentalproject.models;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.List;
 
+@Entity
+@Data
+@Table(name = "branches")
 public class Branch {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String address;
 
-    private List<String> officeEmployees;
+    @OneToMany(mappedBy = "branch")
+    private List<Branch> officeEmployees;
 
+    @OneToMany(mappedBy = "branch")
     private List<Car> availableCars;
 
 
-    public Branch(String address, List<String> officeEmployees, List<Car> availableCars) {
-        this.address = address;
-        this.officeEmployees = officeEmployees;
-        this.availableCars = availableCars;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<String> getOfficeEmployees() {
-        return officeEmployees;
-    }
-
-    public void setOfficeEmployees(List<String> officeEmployees) {
-        this.officeEmployees = officeEmployees;
-    }
-
-    public List<Car> getAvailableCars() {
-        return availableCars;
-    }
-
-    public void setAvailableCars(List<Car> availableCars) {
-        this.availableCars = availableCars;
-    }
 }
-
