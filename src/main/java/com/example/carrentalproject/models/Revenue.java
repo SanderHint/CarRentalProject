@@ -1,5 +1,6 @@
 package com.example.carrentalproject.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Revenue {
@@ -9,10 +10,10 @@ public class Revenue {
         this.bookings = bookings;
     }
 
-    public double calculateRevenue() {
-        double totalRevenue = 0;
+    public BigDecimal calculateRevenue() {
+        BigDecimal totalRevenue = BigDecimal.ZERO;
         for (Booking booking : bookings) {
-            totalRevenue += booking.getAmount();
+            totalRevenue = totalRevenue.add(booking.getAmount());
         }
         return totalRevenue;
     }

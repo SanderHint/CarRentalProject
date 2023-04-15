@@ -1,6 +1,5 @@
 package com.example.carrentalproject.controllers;
 import com.example.carrentalproject.models.Car;
-import com.example.carrentalproject.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,7 @@ import java.util.List;
 public class CarController {
     // methods for handling HTTP requests related to cars
     @Autowired
-    private CarService carService;
+    private CarService1 carService;
 
     @GetMapping
     public List<Car> getAllCars() {
@@ -32,4 +31,4 @@ public class CarController {
 
 
     }
-}
+

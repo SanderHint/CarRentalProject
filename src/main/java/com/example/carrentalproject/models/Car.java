@@ -14,6 +14,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String licencePlate;
     private String make;
     private String model;
     private String bodyType;

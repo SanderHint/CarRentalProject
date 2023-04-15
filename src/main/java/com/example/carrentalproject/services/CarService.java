@@ -1,38 +1,17 @@
 package com.example.carrentalproject.services;
 
 import com.example.carrentalproject.models.Car;
-import com.example.carrentalproject.repositories.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.carrentalproject.models.RentalStatus;
 
 import java.util.List;
 
-@Service
-public class CarService {
-
-    @Autowired
-    private CarRepository carRepository;
-
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
-    }
-
-    public void addCar(Car car) {
-        carRepository.save(car);
-    }
-
-    public void updateCar(Long id, Car car) {
-        Car existingCar = carRepository.findById(id).orElseThrow(() -> new RuntimeException("Car not found"));
-        existingCar.setMake(car.getMake());
-        existingCar.setModel(car.getModel());
-        existingCar.setBodyType(car.getBodyType());
-        existingCar.setYearOfProduction(car.getYearOfProduction());
-        existingCar.setColor(car.getColor());
-        existingCar.setMileage(car.getMileage());
-        carRepository.save(existingCar);
-    }
-
-    public void deleteCar(Long id) {
-        carRepository.deleteById(id);
-    }
+public interface CarService {
+    List<Car> getAllCars();
+    Car getCarById(Long id);
+    Car addCar(Car car);
+    void updateCar(Car car);
+    void deleteCar(Long id);
+    void updateCarMileage(Long id, double newMileage);
+    void updateCarRentalAmount(Long id, double newRentalAmount);
+    void updateRentalStatus(Long id, RentalStatus newStatus);
 }
