@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, Long> {
-    Optional<Branch> findByAddress(String address);
+    Optional<Branch> findByAddress(String Branch);
 
 }

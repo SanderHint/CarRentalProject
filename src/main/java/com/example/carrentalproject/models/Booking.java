@@ -20,8 +20,8 @@ public class Booking {
     @ManyToOne
     private Car car;
 
-    private Date rentalStartDate;
-    private Date rentalEndDate;
+    private Date PickUpDate;
+    private Date ReturnDate;
     private String rentalBranch;
     private String returnBranch;
     private BigDecimal amount;
