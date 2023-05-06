@@ -1,42 +1,53 @@
 package com.example.carrentalproject.controllers;
 
 import com.example.carrentalproject.models.Employee;
-import com.example.carrentalproject.repositories.EmployeeRepository;
+import com.example.carrentalproject.services.EmployeeService;
+import exceptions.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+    // Get all employees
+    @GetMapping("")
+    public ResponseEntity<List<Employee>> getAllEmployees() throws EmployeeNotFoundException {
+        List<Employee> employees = (List<Employee>) employeeService.getAllEmployeesById();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    // Get employee by ID
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Long id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id " + id));
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) throws EmployeeNotFoundException {
+        Employee employee = employeeService.getEmployeeById(id);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
+    // Create a new employee
+    @PostMapping("")
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+        Employee createdEmployee = employeeService.createEmployee(employee);
+        return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+    }
+
+    // Update an existing employee
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
-        Employee existingEmployee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id " + id));
-        existingEmployee.setName(employee.getName());
-        existingEmployee.setSurname(employee.getSurname());
-        existingEmployee.setJobPosition(employee.getJobPosition());
-        existingEmployee.setBranch(employee.getBranch());
-        return employeeRepository.save(existingEmployee);
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) throws EmployeeNotFoundException {
+        Employee updatedEmployee = employeeService.updateEmployee(id, employee);
+        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
     }
 
+    // Delete an existing employee
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEmployee(@PathVariable Long id) {
-        employeeRepository.deleteById(id);
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) throws EmployeeNotFoundException {
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

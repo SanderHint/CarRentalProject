@@ -1,6 +1,6 @@
 package exceptions;
 
-public class HandleException {
+public class HandleException extends Exception {
 
 
 }

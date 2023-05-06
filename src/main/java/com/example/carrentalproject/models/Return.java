@@ -1,16 +1,14 @@
 package com.example.carrentalproject.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
-
+import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
 import java.util.Date;
 
 @Data
 public class Return {
 
-    @Id
+    private GenerationType generationType;
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -19,6 +17,5 @@ public class Return {
     private Booking booking;
     private double additionalPayment;
     private String comments;
-
 
 }

@@ -1,19 +1,15 @@
 package com.example.carrentalproject.models;
 
-import jakarta.persistence.*;
 import lombok.Data;
-
+import javax.persistence.*;
 import java.util.Date;
-
 /*
 CREATED BASED ON BOOKING
  */
 @Data
-@Entity
 @Table(name = "rentals")
 public class Rental {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

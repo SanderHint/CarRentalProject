@@ -1,16 +1,17 @@
 package com.example.carrentalproject.models;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 
-@Entity
+
 @Data
 @Table(name = "cars")
 
 public class Car {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
